@@ -1,13 +1,15 @@
-const Hangman = function(word,remainingGuesses){
+class Hangman {
+
+    constructor (word,remainingGuesses){
     this.word = word;
     this.remainingGuesses = remainingGuesses;
     this.guessedletters = [];
     this.status = 'Playing'
     this.wordArray = this.word.split('');
-}
+    }
 
-Hangman.prototype.getPuzzle= function (){
-    let puzzle = '';
+    getPuzzle(){
+        let puzzle = '';
     this.wordArray.forEach((letter)=>{
       if(this.guessedletters.includes(letter)|| letter === ' '){
         puzzle += letter;
@@ -18,47 +20,47 @@ Hangman.prototype.getPuzzle= function (){
     })
 
     return puzzle;
-}
 
-Hangman.prototype.guessedLetters = function (letter){
-    if(this.status === 'Playing'){
-
-        let isUnique = !this.guessedletters.includes(letter) ;
-        if(isUnique){
-            this.guessedletters.push(letter);
+    }
+    guessedLetters(letter){
+        if(this.status === 'Playing'){
+    
+            let isUnique = !this.guessedletters.includes(letter) ;
+            if(isUnique){
+                this.guessedletters.push(letter);
+            }
+            else{
+                return ('ohh already guessed character');
+            }
+            let isNotMatched = !this.word.toLowerCase().includes(letter);
+            if(isUnique && isNotMatched){
+                this.remainingGuesses--;
+            }
+        }
+        
+    }
+    calculateStatus(){
+        if(!this.remainingGuesses){
+            this.status = 'Lost';
         }
         else{
-            return ('ohh already guessed character');
-        }
-        let isNotMatched = !this.word.toLowerCase().includes(letter);
-        if(isUnique && isNotMatched){
-            this.remainingGuesses--;
-        }
-    }
+            let finished = true;
+            finished = this.wordArray.every((letter)=> this.guessedletters.includes(letter))
     
-}
-
-Hangman.prototype.calculateStatus = function(){
-    if(!this.remainingGuesses){
-        this.status = 'Lost';
+            this.status = finished ? 'Won' : 'Playing';
+            }
+        return this.status;
     }
-    else{
-        let finished = true;
-        finished = this.wordArray.every((letter)=> this.guessedletters.includes(letter))
-
-        this.status = finished ? 'Won' : 'Playing';
+    showMessage(){
+        if(this.status === 'Playing'){
+            return (`You have ${this.remainingGuesses} chance left`);
         }
-    return this.status;
-}
+        else if(this.status === 'Lost'){
+            return (`better luck! next time. word was ${this.word}`);
+        }
+        else{
+            return ('You did it dear!');
+        }
+    }
 
-Hangman.prototype.showMessage = function(){
-    if(this.status === 'Playing'){
-        return (`You have ${this.remainingGuesses} chance left`);
-    }
-    else if(this.status === 'Lost'){
-        return (`better luck! next time. word was ${this.word}`);
-    }
-    else{
-        return ('You did it dear!');
-    }
 }
