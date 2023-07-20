@@ -64,3 +64,16 @@ class Hangman {
     }
 
 }
+
+const getPuzzle = () => fetch ('https://puzzle.mead.io/puzzle?wordCount=1', {}).then((response)=>{
+    if(response.status === 200){
+        return response.json();
+    }else{
+        throw new Error('unable to fatch the data')
+
+    }
+}).then((data)=>{
+    return data.puzzle;
+}).catch((error)=>{
+    console.log(error)
+})
