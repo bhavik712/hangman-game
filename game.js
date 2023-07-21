@@ -1,5 +1,6 @@
 
-
+getPuzzle().then((puzzle)=>console.log(puzzle)
+).catch((error)=>(console.log(error)))
 
 const game1 = new Hangman('chair',2);
 const game2 = new Hangman('New Body',4);
