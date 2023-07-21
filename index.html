@@ -2,19 +2,21 @@
 <html>
     <head>
         <title>Hangman Game</title>
+        <link href="Styles/hangman.css" rel="stylesheet">
     </head>
     <body>
-        <h1>Hangman Game</h1>
-        <button id = "reset-game">Reset</button><br><br>
-       <div id="game-area">
-            
-            <span id="puzzle-word"></span><br>
-            <span id="choice-result"></span><br>
-            <span id="show-status"></span><br>
-            <span id="show-message"></span>
-            
-       </div>
-        <script src="game-functions.js"></script>
-        <script src="game.js"></script>
+        <h1 id="heading">Hangman</h1>
+        <div id="game-box">
+            <div id="game-area">
+                
+                <span id="puzzle-word"></span><br>
+                <p id="choice-result"></p><br>
+                <p id="show-status"></p><br>
+                <p id="show-message"></p>
+            </div>
+            <button id = "reset-game">Reset</button><br><br>
+        </div>
+        <script src="scripts/game-functions.js"></script>
+        <script src="scripts/game.js"></script>
     </body>
 </html>

@@ -28,8 +28,13 @@ class Hangman {
 
     }
     showPuzzle(puzzleWord){
-        const puzzleEle = document.querySelector('#puzzle-word')
-        puzzleEle.textContent = puzzleWord;
+        let puzzleEle = document.querySelector('#puzzle-word')
+        puzzleEle.innerHTML = ' ';
+        puzzleWord.split('').forEach((letter)=>{
+            const letterEle = document.createElement('span');
+            letterEle.textContent = letter;
+            document.querySelector('#puzzle-word').appendChild(letterEle);
+        })
     }
     guessedLetters(letter){
         if(this.status === 'Playing'){
@@ -37,7 +42,7 @@ class Hangman {
             let isUnique = !this.guessedletters.includes(letter) ;
             if(isUnique){
                 this.guessedletters.push(letter);
-                 guessResult = (`you entered ${letter}`)
+                 guessResult = (`You Entered Letter ${letter.toUpperCase()}`)
             }
             else{
                  guessResult; (`${letter} is already guessed`);
