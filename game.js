@@ -1,33 +1,35 @@
+let game1;
 
-getPuzzle().then((puzzle)=>console.log(puzzle)
-).catch((error)=>(console.log(error)))
 
-const game1 = new Hangman('chair',2);
-const game2 = new Hangman('New Body',4);
+const startGame = async ()=>{
+    const puzzle = await getNewWord();
+    game1 = new Hangman (puzzle, 5);
+    puzzleWord = game1.getPuzzle();
+    game1.showPuzzle(puzzleWord);
+    document.querySelector('#show-status').textContent = '';
+    document.querySelector('#show-message').textContent = '';
+    document.querySelector('#choice-result').textContent = '';
+
+}
+
+startGame();
+
+const resetGameButton = document.querySelector('#reset-game')
+resetGameButton.addEventListener('click', ()=> startGame());
+
 // onsole.log(game1.getPuzzle());
-
-showPuzzle = () =>{
-    const puzzleWord = game1.getPuzzle();
-    const puzzleEle = document.querySelector('#puzzle-word')
-    puzzleEle.textContent = puzzleWord;
-}
-
-showStatus = () => {
-    game1.calculateStatus();
-    const statusEle = document.querySelector('#show-status')
-    statusEle.textContent = game1.status;
-
-}
-
-showPuzzle();
 
 window.addEventListener('keypress',(e)=>{
     const letter = (String.fromCharCode(e.charCode)).toLocaleLowerCase();
-    (game1.guessedLetters(letter));
-    showPuzzle();
-    showStatus();
-    const message = game1.showMessage();
-    const messageEle = document.querySelector('#show-message')
-    messageEle.textContent = message;
+    guessResult = (game1.guessedLetters(letter));
+    game1.showGuessResult(guessResult);
+
+    puzzleWord = game1.getPuzzle();
+    game1.showPuzzle(puzzleWord);
+
+    gameStatus = game1.checkStatus();
+    game1.showStatus(gameStatus);
+
+    game1.showMessage();
 
 })
